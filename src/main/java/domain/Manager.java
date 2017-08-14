@@ -2,8 +2,7 @@ package main.java.domain;
 
 import java.util.ArrayList;
 
-public class Manager implements HasEmployee, Employee {
-
+public class Manager extends Employee implements HasEmployee {
     private ArrayList<Employee> employees = new ArrayList<>();
     private int totalTeamAllocation;
 
@@ -13,13 +12,20 @@ public class Manager implements HasEmployee, Employee {
     }
 
     @Override
-    public int getTeamAllocation() {
-        employees.forEach(employee -> totalTeamAllocation += employee.getAllocation());
+    public int getTotalAllocation() {
+        totalTeamAllocation = getAllocation();
+        employees.forEach(employee -> totalTeamAllocation += employee.getTotalAllocation());
         return totalTeamAllocation;
     }
 
     @Override
     public int getAllocation() {
         return 300;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Manager allocation: %s\nTeam allocation: %s",
+                this.getAllocation(), this.getTotalAllocation());
     }
 }
